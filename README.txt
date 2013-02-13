@@ -1,0 +1,1 @@
+A minimal require.js environment to test sparks.js with newer versions of three.js.
