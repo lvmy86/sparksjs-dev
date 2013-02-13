@@ -81,7 +81,9 @@ define([
         that.sparker.update();
       };
     
-    }); 
+    });
+    
+    console.log(this.scene);
   }
 
   Engine.prototype.animate = function() {
