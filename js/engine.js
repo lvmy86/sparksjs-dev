@@ -33,6 +33,7 @@ define([
       antialias: true,
       preserveDrawingBuffer: true
     });
+    //this.renderer = new THREE.CanvasRenderer();
     this.renderer.setClearColor( 0x000000, 1 );
     this.renderer.setSize(width, height);
     //this.renderer.setFaceCulling(0);
@@ -54,7 +55,7 @@ define([
     var initColorSize	= function(){
     	this.initialize = function( emitter, particle ){
     		particle.target.color().setHSV(0.3, 0.9, 0.4);
-    		particle.target.size(150);
+    		particle.target.size(30);
     	};
     };
 
@@ -92,7 +93,7 @@ define([
       that.animate();
     });
     
-    this.renderer.context.depthMask( true );
+    //this.renderer.context.depthMask( true );
     
     // Now the rendering    
     this.renderer.render(this.scene, this.camera);

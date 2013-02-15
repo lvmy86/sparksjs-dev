@@ -29,7 +29,8 @@ require.config({
     }
   },
   paths: {
-    three: '//cdnjs.cloudflare.com/ajax/libs/three.js/r54/three.min',
+    //three: '//cdnjs.cloudflare.com/ajax/libs/three.js/r49/Three',
+    three: 'vendor/Three',
     tween: 'vendor/Tween',
     sparks: 'vendor/Sparks',
     'threex.sparks': 'vendor/THREEx.Sparks',

@@ -32,7 +32,8 @@ THREEx.Sparks	= function(opts)
 	var particles	= new THREE.Geometry();
 	var vertices	= particles.vertices;
 	for ( i = 0; i < this._maxParticles; i++ ) {
-		vertices.push(new THREE.Vector3(Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY));
+    var position	= new THREE.Vector3(Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY);
+    vertices.push(new THREE.Vertex(position));
 		vertexIndexPool.add(i);
 	}
 
@@ -96,7 +97,7 @@ THREEx.Sparks	= function(opts)
 	var onParticleCreated = function(particle) {
 		var vertexIdx	= particle.target.vertexIdx;
 		// copy particle position into three.js geometry
-		vertices[vertexIdx].set(particle.position[0], particle.position[1], particle.position[2]);						
+		vertices[vertexIdx].position	= particle.position;			
 	};
 	
 	var onParticleDead = function(particle) {
@@ -104,7 +105,7 @@ THREEx.Sparks	= function(opts)
 
 		// Hide the particle
 		valuesColor[vertexIdx].setHex( 0x000000 );
-		vertices[vertexIdx].set(Number.POSITIVE_INFINITY,Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY);
+		vertices[vertexIdx].position.set(Number.POSITIVE_INFINITY,Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY);
 		
 		// Mark particle system as available by returning to pool
 		vertexIndexPool.add( vertexIdx );
@@ -141,8 +142,11 @@ THREEx.Sparks.prototype.emitter		= function()
 
 THREEx.Sparks.prototype.update	= function()
 {
-	this._group.geometry.verticesNeedUpdate = true;
-	this._group.geometry.colorsNeedUpdate = true;
+	//this._group.geometry.verticesNeedUpdate = true;
+	//this._group.geometry.colorsNeedUpdate = true;
+  this._group.geometry.__dirtyVertices = true;
+  this._group.geometry.__dirtyColors = true;
+  
 	this._attributes.size.needsUpdate	= true;
 	this._attributes.aColor.needsUpdate	= true;
 }
