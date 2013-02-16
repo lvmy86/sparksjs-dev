@@ -30,11 +30,11 @@ require.config({
   },
   paths: {
     // r55 renders the cylinder but nothing else
-    three: '//cdnjs.cloudflare.com/ajax/libs/three.js/r55/three.min',
+    //three: '//cdnjs.cloudflare.com/ajax/libs/three.js/r55/three.min',
     
     // r49 dies during the particle creation phase with 
     //Uncaught TypeError: Object [object Object] has no method 'length'
-    //three: '//cdnjs.cloudflare.com/ajax/libs/three.js/r49/Three',
+    three: '//cdnjs.cloudflare.com/ajax/libs/three.js/r49/Three',
     
     // r46 works, but is of course now very outdated
     //three: 'vendor/Three',

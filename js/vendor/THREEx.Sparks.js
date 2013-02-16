@@ -33,7 +33,7 @@ THREEx.Sparks	= function(opts)
 	var vertices	= particles.vertices;
 	for ( i = 0; i < this._maxParticles; i++ ) {
     var position	= new THREE.Vector3(Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY);
-    vertices.push(new THREE.Vertex(position));
+    vertices.push(position);
 		vertexIndexPool.add(i);
 	}
 
@@ -96,8 +96,15 @@ THREEx.Sparks	= function(opts)
 
 	var onParticleCreated = function(particle) {
 		var vertexIdx	= particle.target.vertexIdx;
+    
 		// copy particle position into three.js geometry
-		vertices[vertexIdx].position	= particle.position;			
+		vertices[vertexIdx].copy(particle.position);			
+    
+    // Not so much output!
+    /*var rand = Math.random();
+    if (rand > 0.997) {
+      console.log(vertices[vertexIdx], particle.position);
+    }*/
 	};
 	
 	var onParticleDead = function(particle) {
@@ -105,7 +112,7 @@ THREEx.Sparks	= function(opts)
 
 		// Hide the particle
 		valuesColor[vertexIdx].setHex( 0x000000 );
-		vertices[vertexIdx].position.set(Number.POSITIVE_INFINITY,Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY);
+		vertices[vertexIdx].set(Number.POSITIVE_INFINITY,Number.POSITIVE_INFINITY, Number.POSITIVE_INFINITY);
 		
 		// Mark particle system as available by returning to pool
 		vertexIndexPool.add( vertexIdx );
@@ -114,7 +121,8 @@ THREEx.Sparks	= function(opts)
 	var emitter	= this._emitter	= new SPARKS.Emitter(counter);
 
 	emitter.addInitializer(new SPARKS.Target(null, setTargetParticle));
-	emitter.addCallback("created"	, onParticleCreated	);
+	//emitter.addCallback("created"	, onParticleCreated	);
+  emitter.addCallback("updated"	, onParticleCreated	);
 	emitter.addCallback("dead"	, onParticleDead	);
 }
 
@@ -142,10 +150,10 @@ THREEx.Sparks.prototype.emitter		= function()
 
 THREEx.Sparks.prototype.update	= function()
 {
-	//this._group.geometry.verticesNeedUpdate = true;
-	//this._group.geometry.colorsNeedUpdate = true;
-  this._group.geometry.__dirtyVertices = true;
-  this._group.geometry.__dirtyColors = true;
+	this._group.geometry.verticesNeedUpdate = true;
+	this._group.geometry.colorsNeedUpdate = true;
+  //this._group.geometry.__dirtyVertices = true;
+  //this._group.geometry.__dirtyColors = true;
   
 	this._attributes.size.needsUpdate	= true;
 	this._attributes.aColor.needsUpdate	= true;
