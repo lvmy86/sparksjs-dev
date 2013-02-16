@@ -32,9 +32,15 @@ require.config({
     // r55 renders the cylinder but nothing else
     //three: '//cdnjs.cloudflare.com/ajax/libs/three.js/r55/three.min',
     
-    // r49 dies during the particle creation phase with 
-    //Uncaught TypeError: Object [object Object] has no method 'length'
-    three: '//cdnjs.cloudflare.com/ajax/libs/three.js/r49/Three',
+    // in r51 WebGL errors suppressed, but particles stop drawing.
+    // THIS IS THE TIPPING POINT: between r50 and r51
+    // something changed (possibly in WebGL error handling)
+    three: '//cdnjs.cloudflare.com/ajax/libs/three.js/r51/three',
+    
+    // r50, r49 
+    // all draw the particles as expected, but with WebGL errors.
+    //three: '//cdnjs.cloudflare.com/ajax/libs/three.js/r50/three',
+    //three: '//cdnjs.cloudflare.com/ajax/libs/three.js/r49/Three',
     
     // r46 works, but is of course now very outdated
     //three: 'vendor/Three',
