@@ -47,7 +47,7 @@ THREEx.Sparks	= function(opts)
 	};
 
 	var uniforms	= this._uniforms	= {
-		texture		: { type: "t", texture: this._texture 		},
+		texture		: { type: "t", value: this._texture 		},
 		color		: { type: "c", value: new THREE.Color(0xffffff)	},
 		sizeRatio	: { type: "f", value: this._computeSizeRatio()	}
 	};
@@ -121,7 +121,8 @@ THREEx.Sparks	= function(opts)
 	var emitter	= this._emitter	= new SPARKS.Emitter(counter);
 
 	emitter.addInitializer(new SPARKS.Target(null, setTargetParticle));
-	//emitter.addCallback("created"	, onParticleCreated	);
+	// Created no longer works in r55, need to use updated instead
+  //emitter.addCallback("created"	, onParticleCreated	);
   emitter.addCallback("updated"	, onParticleCreated	);
 	emitter.addCallback("dead"	, onParticleDead	);
 }
@@ -152,8 +153,6 @@ THREEx.Sparks.prototype.update	= function()
 {
 	this._group.geometry.verticesNeedUpdate = true;
 	this._group.geometry.colorsNeedUpdate = true;
-  //this._group.geometry.__dirtyVertices = true;
-  //this._group.geometry.__dirtyColors = true;
   
 	this._attributes.size.needsUpdate	= true;
 	this._attributes.aColor.needsUpdate	= true;

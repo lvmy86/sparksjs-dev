@@ -29,13 +29,14 @@ require.config({
     }
   },
   paths: {
-    // r55 renders the cylinder but nothing else
-    //three: '//cdnjs.cloudflare.com/ajax/libs/three.js/r55/three.min',
+    // r55 renders the cylinder
+    // and, after the THREEx.Sparks fixes, all works
+    three: '//cdnjs.cloudflare.com/ajax/libs/three.js/r55/three.min',
     
     // in r51 WebGL errors suppressed, but particles stop drawing.
     // THIS IS THE TIPPING POINT: between r50 and r51
     // something changed (possibly in WebGL error handling)
-    three: '//cdnjs.cloudflare.com/ajax/libs/three.js/r51/three',
+    //three: '//cdnjs.cloudflare.com/ajax/libs/three.js/r50/three',
     
     // r50, r49 
     // all draw the particles as expected, but with WebGL errors.
